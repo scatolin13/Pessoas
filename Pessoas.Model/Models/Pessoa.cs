@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Pessoas.Repository.Models
+namespace Pessoas.Models
 {
     public partial class Pessoa
     {
@@ -17,10 +17,9 @@ namespace Pessoas.Repository.Models
         public int? EstadoCivilId { get; set; }
         public int? GrauInstrucaoId { get; set; }
         public DateTime DataNascimento { get; set; }
-        public int PaisNascimento { get; set; }
-        public int Nacionalidade { get; set; }
+        public int? PaisNascimento { get; set; }
+        public int? Nacionalidade { get; set; }
         public int? Naturalidade { get; set; }
-        public int? TipoLogradouroId { get; set; }
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
 

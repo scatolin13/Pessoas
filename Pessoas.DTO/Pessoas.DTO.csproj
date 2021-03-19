@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pessoas.DTO\Pessoas.DTO.csproj" />
+    <PackageReference Include="FluntValidation" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

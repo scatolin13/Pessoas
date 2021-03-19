@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Pessoas.Repository.Models
+namespace Pessoas.Models
 {
     public partial class TipoInscricao
     {
