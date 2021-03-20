@@ -12,10 +12,10 @@ namespace Pessoas.Models
             Pessoas = new HashSet<Pessoa>();
         }
 
-        public int Id { get; set; }
-        public string Descricao { get; set; }
-        public bool Ativado { get; set; }
+        public int Id { get; private set; }
+        public string Descricao { get; private set; }
+        public bool Ativado { get; private set; }
 
-        public virtual ICollection<Pessoa> Pessoas { get; set; }
+        public virtual ICollection<Pessoa> Pessoas { get; private set; }
     }
 }

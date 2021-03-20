@@ -65,5 +65,12 @@ namespace Pessoas.Models
             }
             return this;
         }
+
+        public Pessoa Excluir()
+        {
+            IsGreaterThan(Id, 0, "Pessoa", "não localizada");
+
+            return this;
+        }
     }
 }

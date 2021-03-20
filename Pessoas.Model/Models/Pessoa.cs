@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
@@ -7,25 +6,27 @@ namespace Pessoas.Models
 {
     public partial class Pessoa
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string NomeSocial { get; set; }
-        public int TipoInscricaoId { get; set; }
-        public string Cpf { get; set; }
-        public int SexoId { get; set; }
-        public int? RacaCorId { get; set; }
-        public int? EstadoCivilId { get; set; }
-        public int? GrauInstrucaoId { get; set; }
-        public DateTime DataNascimento { get; set; }
-        public int? PaisNascimento { get; set; }
-        public int? Nacionalidade { get; set; }
-        public int? Naturalidade { get; set; }
-        public string NomePai { get; set; }
-        public string NomeMae { get; set; }
+        public Pessoa() { }
 
-        public virtual EstadoCivil EstadoCivil { get; set; }
-        public virtual GrauInstrucao GrauInstrucao { get; set; }
-        public virtual RacaCor RacaCor { get; set; }
-        public virtual Sexo Sexo { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string NomeSocial { get; private set; }
+        public int TipoInscricaoId { get; private set; }
+        public string Cpf { get; private set; }
+        public int SexoId { get; private set; }
+        public int? RacaCorId { get; private set; }
+        public int? EstadoCivilId { get; private set; }
+        public int? GrauInstrucaoId { get; private set; }
+        public DateTime DataNascimento { get; private set; }
+        public int? PaisNascimento { get; private set; }
+        public int? Nacionalidade { get; private set; }
+        public int? Naturalidade { get; private set; }
+        public string NomePai { get; private set; }
+        public string NomeMae { get; private set; }
+
+        public virtual EstadoCivil EstadoCivil { get; private set; }
+        public virtual GrauInstrucao GrauInstrucao { get; private set; }
+        public virtual RacaCor RacaCor { get; private set; }
+        public virtual Sexo Sexo { get; private set; }
     }
 }

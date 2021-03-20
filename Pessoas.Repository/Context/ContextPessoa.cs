@@ -1,30 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluntValidation.Notifications;
+using Microsoft.EntityFrameworkCore;
+using Pessoas.Models;
 
 #nullable disable
 
-namespace Pessoas.Repository.Models
+namespace Pessoas.Repository.Context
 {
-    public partial class db_pessoasContext : DbContext
+    public partial class ContextPessoa
     {
-        public db_pessoasContext()
-        {
-        }
-
-        public db_pessoasContext(DbContextOptions<db_pessoasContext> options)
-            : base(options)
-        {
-        }
-
         public virtual DbSet<Deficiencia> Deficiencia { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
         public virtual DbSet<GrauInstrucao> GrauInstrucaos { get; set; }
         public virtual DbSet<Pessoa> Pessoas { get; set; }
         public virtual DbSet<RacaCor> RacaCors { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
-        public virtual DbSet<TipoInscricao> TipoInscricaos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<Notification>();
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
             modelBuilder.Entity<Deficiencia>(entity =>
@@ -142,22 +135,6 @@ namespace Pessoas.Repository.Models
                 entity.Property(e => e.Sigla)
                     .IsRequired()
                     .HasMaxLength(1)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<TipoInscricao>(entity =>
-            {
-                entity.ToTable("TipoInscricao");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Descricao)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Detalhamento)
-                    .HasMaxLength(200)
                     .IsUnicode(false);
             });
 
