@@ -1,13 +1,12 @@
-﻿using Pessoas.DTO;
-using Pessoas.DTO.Request;
+﻿using Pessoas.DTO.Request;
 using Pessoas.DTO.Response;
 using Pessoas.Models;
 using Pessoas.Repository.Interfaces;
 using Pessoas.Service.CustomAutoMapper;
 using Pessoas.Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pessoas.Service.Services
 {
@@ -20,28 +19,28 @@ namespace Pessoas.Service.Services
             this.repository = repository;
         }
 
-        public IEnumerable<PessoaDTO> RetornarPorId(params int[] id)
+        public async Task<IEnumerable<PessoaDTO>> RetornarPorId(params int[] id)
         {
 
-            var customMapper = new CustomMapper<IEnumerable<Pessoa>, IEnumerable<PessoaDTO>>();
+            var customMapper = new CustomMapper<Pessoa, PessoaDTO>();
             var pessoas = repository.RetornarPorId(id);
 
-            var res = customMapper.Map(pessoas);
+            var res = await customMapper.Map<Task<IEnumerable<Pessoa>>, Task<IEnumerable<PessoaDTO>>>(pessoas);
 
             return res;
         }
 
-        public IEnumerable<PessoaDTO> RetornarPorCpf(params string[] cpf)
+        public async Task<IEnumerable<PessoaDTO>> RetornarPorCpf(params string[] cpf)
         {
-            var customMapper = new CustomMapper<IEnumerable<Pessoa>, IEnumerable<PessoaDTO>>();
+            var customMapper = new CustomMapper<Pessoa, PessoaDTO>();
             var pessoas = repository.RetornarPorCpf(cpf);
 
-            var res = customMapper.Map(pessoas);
+            var res = await customMapper.Map<Task<IEnumerable<Pessoa>>, Task<IEnumerable<PessoaDTO>>>(pessoas);
 
             return res;
         }
         
-        public PessoaResponse Inserir(params PessoaDTO[] entities)
+        public async Task<PessoaResponse> Inserir(params PessoaDTO[] entities)
         {
             var listModel = new List<Pessoa>();
             var res = new PessoaResponse();
@@ -66,7 +65,7 @@ namespace Pessoas.Service.Services
             {
                 repository.Inserir(listModel.Where(o => o.IsValid).ToArray());
 
-                repository.SaveChanges();
+                await repository.SaveChanges();
 
                 res.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToArray();
             }
@@ -74,7 +73,7 @@ namespace Pessoas.Service.Services
             return res;
         }
 
-        public PessoaResponse Atualizar(params PessoaDTO[] entities)
+        public async Task<PessoaResponse> Atualizar(params PessoaDTO[] entities)
         {
             var listModel = new List<Pessoa>();
             var res = new PessoaResponse();
@@ -99,7 +98,7 @@ namespace Pessoas.Service.Services
             {
                 repository.Atualizar(listModel.Where(o => o.IsValid).ToArray());
 
-                repository.SaveChanges();
+                await repository.SaveChanges();
 
                 res.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToArray();
             }
@@ -107,7 +106,7 @@ namespace Pessoas.Service.Services
             return res;
         }
 
-        public PessoaResponse Excluir(params PessoaDTO[] entities)
+        public async Task<PessoaResponse> Excluir(params PessoaDTO[] entities)
         {
             var listModel = new List<Pessoa>();
             var res = new PessoaResponse();
@@ -128,7 +127,7 @@ namespace Pessoas.Service.Services
             {
                 repository.Excluir(listModel.Where(o => o.IsValid).ToArray());
 
-                repository.SaveChanges();
+                await repository .SaveChanges();
 
                 res.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToArray();
             }

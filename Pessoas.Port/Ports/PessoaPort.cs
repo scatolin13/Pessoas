@@ -3,6 +3,7 @@ using Pessoas.DTO.Response;
 using Pessoas.Port.Interfaces;
 using Pessoas.Service.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pessoas.Port.Ports
 {
@@ -15,9 +16,9 @@ namespace Pessoas.Port.Ports
             this.service = service;
         }
 
-        public IEnumerable<PessoaDTO> RetornarPorId(params int[] id)
+        public async Task<IEnumerable<PessoaDTO>> RetornarPorId(params int[] id)
         {
-            var res = service.RetornarPorId(id);
+            var res = await service.RetornarPorId(id);
 
             return res;
         }

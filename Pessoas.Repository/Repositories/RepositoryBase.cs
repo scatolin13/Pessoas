@@ -2,6 +2,7 @@
 using Pessoas.Repository.Context;
 using Pessoas.Repository.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace Pessoas.Repository.Repositories
 {
@@ -30,9 +31,10 @@ namespace Pessoas.Repository.Repositories
             context.RemoveRange(entities);
         }
 
-        public void SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            return true;
         }
 
         public void Dispose()

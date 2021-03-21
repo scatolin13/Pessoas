@@ -1,7 +1,9 @@
-﻿using Pessoas.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Pessoas.Models;
 using Pessoas.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pessoas.Repository.Repositories
 {
@@ -12,20 +14,22 @@ namespace Pessoas.Repository.Repositories
         {
         }
 
-        public IEnumerable<Pessoa> RetornarPorId(params int[] id)
+        public async Task<IEnumerable<Pessoa>> RetornarPorId(params int[] id)
         {
-            var res = context.Pessoas
+            var res = await context.Pessoas
+                .AsNoTracking()
                 .Where(o => id.Contains(o.Id))
-                .ToList();
+                .ToListAsync();
 
             return res;
         }
 
-        public IEnumerable<Pessoa> RetornarPorCpf(params string[] cpf)
+        public async Task<IEnumerable<Pessoa>> RetornarPorCpf(params string[] cpf)
         {
-            var res = context.Pessoas
+            var res = await context.Pessoas
+                .AsNoTracking()
                 .Where(o => cpf.Contains(o.Cpf))
-                .ToList();
+                .ToListAsync();
 
             return res;
         }

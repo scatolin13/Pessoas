@@ -13,7 +13,7 @@ namespace Pessoas.Service.CustomAutoMapper
             conf.CreateMap<TOne, TTwo>();
         }
 
-        public TTwo Map(TOne entity)
+        public TTwo Map<TOne, TTwo>(TOne entity)
         {
             IMapper mapper = new MapperConfiguration(conf).CreateMapper();
             var target = mapper.Map<TOne, TTwo>(entity);
