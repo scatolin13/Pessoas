@@ -1,8 +1,8 @@
-﻿using Pessoas.DTO.Request;
+﻿using CustomMapper;
+using Pessoas.DTO.Request;
 using Pessoas.DTO.Response;
 using Pessoas.Models;
 using Pessoas.Repository.Interfaces;
-using Pessoas.Service.CustomAutoMapper;
 using Pessoas.Service.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,20 +22,20 @@ namespace Pessoas.Service.Services
         public async Task<IEnumerable<PessoaDTO>> RetornarPorId(params int[] id)
         {
 
-            var customMapper = new CustomMapper<Pessoa, PessoaDTO>();
-            var pessoas = repository.RetornarPorId(id);
+            var customMapper = new CustomAutoMapper<Pessoa, PessoaDTO>();
+            var pessoas = await repository.RetornarPorId(id);
 
-            var res = await customMapper.Map<Task<IEnumerable<Pessoa>>, Task<IEnumerable<PessoaDTO>>>(pessoas);
+            var res = customMapper.Map(pessoas);
 
             return res;
         }
 
         public async Task<IEnumerable<PessoaDTO>> RetornarPorCpf(params string[] cpf)
         {
-            var customMapper = new CustomMapper<Pessoa, PessoaDTO>();
-            var pessoas = repository.RetornarPorCpf(cpf);
+            var customMapper = new CustomAutoMapper<Pessoa, PessoaDTO>();
+            var pessoas = await repository.RetornarPorCpf(cpf);
 
-            var res = await customMapper.Map<Task<IEnumerable<Pessoa>>, Task<IEnumerable<PessoaDTO>>>(pessoas);
+            var res = customMapper.Map(pessoas);
 
             return res;
         }

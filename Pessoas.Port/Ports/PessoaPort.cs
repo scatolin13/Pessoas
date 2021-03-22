@@ -23,9 +23,9 @@ namespace Pessoas.Port.Ports
             return res;
         }
         
-        public IEnumerable<PessoaDTO> RetornarPorCpf(params string[] cpf)
+        public async Task<IEnumerable<PessoaDTO>> RetornarPorCpf(params string[] cpf)
         {
-            var res = service.RetornarPorCpf(cpf);
+            var res = await service.RetornarPorCpf(cpf);
 
             return res;
         }

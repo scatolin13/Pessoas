@@ -19,28 +19,24 @@ namespace Pessoas.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<PessoaDTO>> RetornarPorId([FromBody] params int[] id)
+        public async Task<IEnumerable<PessoaDTO>> RetornarPorId([FromBody] teste teste)
         {
-            var res = await pessoa.RetornarPorId(id);
-            
+            var res = await pessoa.RetornarPorId(teste.Id);
+
             return res;
         }
 
         [HttpPut]
         public async Task<PessoaResponse> Inserir([FromBody] params PessoaDTO[] pessoas)
         {
-            var res = new PessoaResponse();
-
-            try
-            {
-                res = await pessoa.Inserir(pessoas);
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-            }
-
+            var res = await pessoa.Inserir(pessoas);
+    
             return res;
+        }
+
+        public class teste
+        {
+            public int[] Id { get; set; }
         }
     }
 }

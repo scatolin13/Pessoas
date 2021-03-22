@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="CustomMapper" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

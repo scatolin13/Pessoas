@@ -8,6 +8,6 @@ namespace Pessoas.Port.Interfaces
     public interface IPessoaPort : IPortBase<PessoaDTO, PessoaResponse>
     {
         Task<IEnumerable<PessoaDTO>> RetornarPorId(params int[] id);
-        IEnumerable<PessoaDTO> RetornarPorCpf(params string[] cpf);
+        Task<IEnumerable<PessoaDTO>> RetornarPorCpf(params string[] cpf);
     }
 }
