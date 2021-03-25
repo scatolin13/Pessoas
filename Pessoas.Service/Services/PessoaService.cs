@@ -56,6 +56,7 @@ namespace Pessoas.Service.Services
         {
             var listModel = new List<Pessoa>();
             var res = new ResponseBase<PessoaResponse>();
+            var pessoaResponse = new PessoaResponse();
 
             try
             {
@@ -81,8 +82,9 @@ namespace Pessoas.Service.Services
 
                     await repository.SaveChanges();
 
-                    res.Entities.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
+                    pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
+                    res.Entities = pessoaResponse;
                     res.Message.Add("Registro inserido com sucesso");
                 }
                 else
@@ -105,6 +107,7 @@ namespace Pessoas.Service.Services
         {
             var listModel = new List<Pessoa>();
             var res = new ResponseBase<PessoaResponse>();
+            var pessoaResponse = new PessoaResponse();
 
             try
             {
@@ -130,8 +133,9 @@ namespace Pessoas.Service.Services
 
                     await repository.SaveChanges();
 
-                    res.Entities.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
+                    pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
+                    res.Entities = pessoaResponse;
                     res.Message.Add("Registro alterado com sucesso");
                 }
                 else
@@ -152,6 +156,7 @@ namespace Pessoas.Service.Services
         {
             var listModel = new List<Pessoa>();
             var res = new ResponseBase<PessoaResponse>();
+            var pessoaResponse = new PessoaResponse();
 
             try
             {
@@ -173,8 +178,9 @@ namespace Pessoas.Service.Services
 
                     await repository.SaveChanges();
 
-                    res.Entities.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
+                    pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
+                    res.Entities = pessoaResponse;
                     res.Message.Add("Registro deletado com sucesso");
                 }
                 else
