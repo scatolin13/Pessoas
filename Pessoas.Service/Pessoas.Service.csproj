@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="CustomMapper" Version="1.0.0" />
+    <PackageReference Include="RequestResponse" Version="1.1.5" />
   </ItemGroup>
 
 </Project>

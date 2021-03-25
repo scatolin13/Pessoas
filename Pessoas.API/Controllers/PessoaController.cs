@@ -2,6 +2,7 @@
 using Pessoas.DTO.Request;
 using Pessoas.DTO.Response;
 using Pessoas.Port.Interfaces;
+using RequestResponse;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,24 +20,27 @@ namespace Pessoas.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<PessoaDTO>> RetornarPorId([FromBody] teste teste)
+        public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorId([FromBody] params int[] id)
         {
-            var res = await pessoa.RetornarPorId(teste.Id);
+            var res = await pessoa.RetornarPorId(id);
 
             return res;
         }
 
         [HttpPut]
-        public async Task<PessoaResponse> Inserir([FromBody] params PessoaDTO[] pessoas)
+        public async Task<ResponseBase<PessoaResponse>> Inserir([FromBody] params PessoaDTO[] pessoas)
         {
             var res = await pessoa.Inserir(pessoas);
     
             return res;
         }
 
-        public class teste
+        [HttpPut]
+        public async Task<ResponseBase<PessoaResponse>> Atualizar([FromBody] params PessoaDTO[] pessoas)
         {
-            public int[] Id { get; set; }
+            var res = await pessoa.Atualizar(pessoas);
+
+            return res;
         }
     }
 }

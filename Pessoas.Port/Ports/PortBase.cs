@@ -1,6 +1,7 @@
 ﻿using FluntValidation.Validations;
 using Pessoas.Port.Interfaces;
 using Pessoas.Service.Interfaces;
+using RequestResponse;
 using System.Threading.Tasks;
 
 namespace Pessoas.Port.Ports
@@ -14,21 +15,21 @@ namespace Pessoas.Port.Ports
             this.service = service;
         }
 
-        public async Task<EntityResult> Inserir(params Entity[] entities)
+        public async Task<ResponseBase<EntityResult>> Inserir(params Entity[] entities)
         {
             var res = await service.Inserir(entities);
 
             return res;
         }
 
-        public async Task<EntityResult> Atualizar(params Entity[] entities)
+        public async Task<ResponseBase<EntityResult>> Atualizar(params Entity[] entities)
         {
             var res = await service.Atualizar(entities);
 
             return res;
         }
 
-        public async Task<EntityResult> Excluir(params Entity[] entities)
+        public async Task<ResponseBase<EntityResult>> Excluir(params Entity[] entities)
         {
             var res = await service .Excluir(entities);
 

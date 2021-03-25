@@ -1,5 +1,4 @@
 ﻿using FluntValidation.Validations;
-using Pessoas.DTO.Enum;
 using System;
 
 namespace Pessoas.Models
@@ -11,11 +10,13 @@ namespace Pessoas.Models
             Id = id;
         }
 
-        public Pessoa Cadastrar(string nome, string nomeSocial, string cpf, ESexo sexo)
+        public Pessoa Cadastrar(string nome, string nomeSocial, string cpf, int? sexo)
         {
             IsNotNullOrWhiteSpace(nome, "Nome", "é obrigatório.");
-            IsCPF(Cpf, "CPF", "inválido");
-            
+            IsCPF(cpf, "CPF", "inválido");
+            IsNotNull(sexo, "Sexo", "é obrigatório");
+            IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+
             if (IsValid)
             {
                 Nome = nome;
@@ -28,24 +29,45 @@ namespace Pessoas.Models
             return this;
         }
 
-        public Pessoa AdicionarInformacoes(ERacaCor? racaCor, EEstadoCivil? estadoCivil, EGrauInstrucao? grauInstrucao)
+        public Pessoa Atualizar(string nome, string nomeSocial, string cpf, int? sexo)
         {
-            RacaCorId = (int)racaCor;
-            EstadoCivilId = (int)estadoCivil;
-            GrauInstrucaoId = (int)grauInstrucao;
+            IsGreaterThan(Id, 0, "Pessoa", "não localizado");
+            IsNotNullOrWhiteSpace(nome, "Nome", "é obrigatório.");
+            IsCPF(cpf, "CPF", "inválido");
+            IsNotNull(sexo, "Sexo", "é obrigatório");
+            IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+
+            if (IsValid)
+            {
+                Nome = nome;
+                NomeSocial = nomeSocial;
+                TipoInscricaoId = 1; // CPF
+                Cpf = cpf;
+                SexoId = (int)sexo;
+            }
+
+            return this;
+        }
+
+        public Pessoa AdicionarInformacoes(int? racaCor, int? estadoCivil, int? grauInstrucao)
+        {
+            RacaCorId = racaCor;
+            EstadoCivilId = estadoCivil;
+            GrauInstrucaoId = grauInstrucao;
 
             return this;
         }
 
         public Pessoa AdicionarInformacoesNascimento(DateTime dataNascimento, int? paisNascimento, int? nacionalidade, int? naturalidade)
         {
-            IsLowerOrEqualsThan(dataNascimento, DateTime.Now, "Data de nascimento", "não pode ser maior que a data atual");
+            IsBetween(dataNascimento, DateTime.Now.AddYears(-200), DateTime.Now, "Data de nascimento", "inválida");
             IfNotNull(paisNascimento, o => IsGreaterThan(paisNascimento.Value, 0, "País de nascimento", "inválido"));
             IfNotNull(nacionalidade, o => IsGreaterThan(nacionalidade.Value, 0, "Nacionalidade", "inválido"));
             IfNotNull(naturalidade, o => IsGreaterThan(naturalidade.Value, 0, "Naturalidade", "inválido"));
 
             if (IsValid)
             {
+                DataNascimento = dataNascimento;
                 PaisNascimento = paisNascimento;
                 Nacionalidade = nacionalidade;
                 Naturalidade = naturalidade;
