@@ -104,8 +104,7 @@ namespace Pessoas.Service.Services
             catch (System.Exception ex)
             {
                 res.Message.Add("Falha ao inserir registro");
-
-                throw ex;
+                res.Message.Add(ex.Message);
             }
 
             return res;
