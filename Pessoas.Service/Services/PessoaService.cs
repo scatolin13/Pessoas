@@ -30,24 +30,32 @@ namespace Pessoas.Service.Services
                 var pessoas = await repository.RetornarPorId(id);
 
                 res.Entities = customMapper.Map(pessoas);
-
-                return res;
             }
             catch (System.Exception ex)
             {
                 res.Message.Add("Falha ao buscar registro");
-                throw ex;
+                res.Message.Add(ex.Message);
             }
+
+            return res;
         }
 
         public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorCpf(params string[] cpf)
         {
-            var customMapper = new CustomAutoMapper<Pessoa, PessoaDTO>();
-            var pessoas = await repository.RetornarPorCpf(cpf);
-
             var res = new ResponseBase<IEnumerable<PessoaDTO>>();
 
-            res.Entities = customMapper.Map(pessoas);
+            try
+            {
+                var customMapper = new CustomAutoMapper<Pessoa, PessoaDTO>();
+                var pessoas = await repository.RetornarPorCpf(cpf);
+
+                res.Entities = customMapper.Map(pessoas);
+            }
+            catch (System.Exception ex)
+            {
+                res.Message.Add("Falha ao buscar registro");
+                res.Message.Add(ex.Message);
+            }
 
             return res;
         }
@@ -96,8 +104,7 @@ namespace Pessoas.Service.Services
             catch (System.Exception ex)
             {
                 res.Message.Add("Falha ao inserir registro");
-
-                throw ex;
+                res.Message.Add(ex.Message);
             }
 
             return res;
