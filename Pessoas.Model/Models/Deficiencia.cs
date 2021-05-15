@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
-
-namespace Pessoas.Models
+﻿namespace Pessoas.Models
 {
     public partial class Deficiencia
     {

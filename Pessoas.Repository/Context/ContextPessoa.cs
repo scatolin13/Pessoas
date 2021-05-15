@@ -60,7 +60,7 @@ namespace Pessoas.Repository.Context
             {
                 entity.ToTable("Pessoa");
 
-                entity.Property(e => e.Cpf)
+                entity.Property(e => e.CPF)
                     .IsRequired()
                     .HasMaxLength(14)
                     .IsUnicode(false)
@@ -84,8 +84,6 @@ namespace Pessoas.Repository.Context
                 entity.Property(e => e.NomeSocial)
                     .HasMaxLength(250)
                     .IsUnicode(false);
-
-                entity.Property(e => e.TipoInscricaoId).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.EstadoCivil)
                     .WithMany(p => p.Pessoas)

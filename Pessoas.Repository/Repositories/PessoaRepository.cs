@@ -28,7 +28,7 @@ namespace Pessoas.Repository.Repositories
         {
             var res = await context.Pessoas
                 .AsNoTracking()
-                .Where(o => cpf.Contains(o.Cpf))
+                .Where(o => cpf.Contains(o.CPF))
                 .ToListAsync();
 
             return res;

@@ -22,7 +22,7 @@ namespace Pessoas.Models
                 Nome = nome;
                 NomeSocial = nomeSocial;
                 TipoInscricaoId = 1; // CPF
-                Cpf = cpf;
+                CPF = cpf;
                 SexoId = (int)sexo;
             }
 
@@ -42,7 +42,7 @@ namespace Pessoas.Models
                 Nome = nome;
                 NomeSocial = nomeSocial;
                 TipoInscricaoId = 1; // CPF
-                Cpf = cpf;
+                CPF = cpf;
                 SexoId = (int)sexo;
             }
 
@@ -68,7 +68,7 @@ namespace Pessoas.Models
             if (IsValid)
             {
                 DataNascimento = dataNascimento;
-                PaisNascimento = paisNascimento;
+                PaisNascimentoId = paisNascimento;
                 Nacionalidade = nacionalidade;
                 Naturalidade = naturalidade;
             }
