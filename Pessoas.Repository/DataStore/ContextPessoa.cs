@@ -1,13 +1,21 @@
-﻿using FluntValidation.Notifications;
-using Microsoft.EntityFrameworkCore;
-using Pessoas.Model.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Pessoas.Models;
 
 #nullable disable
 
-namespace Pessoas.Repository.Context
+namespace Pessoas.Repository.DataStore
 {
-    public partial class ContextPessoa
+    public partial class ContextPessoa : DbContext
     {
+        public ContextPessoa()
+        {
+        }
+
+        public ContextPessoa(DbContextOptions<ContextPessoa> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<Deficiencium> Deficiencia { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
         public virtual DbSet<GrauInstrucao> GrauInstrucaos { get; set; }
@@ -16,9 +24,17 @@ namespace Pessoas.Repository.Context
         public virtual DbSet<RacaCor> RacaCors { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=M2RGNTK0001;Initial Catalog=db_pessoas;Trusted_Connection=True;Connection Timeout=10800");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<Notification>();
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
             modelBuilder.Entity<Deficiencium>(entity =>

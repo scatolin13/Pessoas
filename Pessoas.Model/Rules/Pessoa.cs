@@ -21,8 +21,7 @@ namespace Pessoas.Models
             {
                 Nome = nome;
                 NomeSocial = nomeSocial;
-                TipoInscricaoId = 1; // CPF
-                CPF = cpf;
+                Cpf = cpf;
                 SexoId = (int)sexo;
             }
 
@@ -41,8 +40,7 @@ namespace Pessoas.Models
             {
                 Nome = nome;
                 NomeSocial = nomeSocial;
-                TipoInscricaoId = 1; // CPF
-                CPF = cpf;
+                Cpf = cpf;
                 SexoId = (int)sexo;
             }
 
@@ -58,17 +56,15 @@ namespace Pessoas.Models
             return this;
         }
 
-        public Pessoa AdicionarInformacoesNascimento(DateTime dataNascimento, int? paisNascimento, int? nacionalidade, int? naturalidade)
+        public Pessoa AdicionarInformacoesNascimento(DateTime dataNascimento, int? nacionalidade, int? naturalidade)
         {
             IsBetween(dataNascimento, DateTime.Now.AddYears(-200), DateTime.Now, "Data de nascimento", "inválida");
-            IfNotNull(paisNascimento, o => IsGreaterThan(paisNascimento.Value, 0, "País de nascimento", "inválido"));
             IfNotNull(nacionalidade, o => IsGreaterThan(nacionalidade.Value, 0, "Nacionalidade", "inválido"));
             IfNotNull(naturalidade, o => IsGreaterThan(naturalidade.Value, 0, "Naturalidade", "inválido"));
 
             if (IsValid)
             {
                 DataNascimento = dataNascimento;
-                PaisNascimentoId = paisNascimento;
                 Nacionalidade = nacionalidade;
                 Naturalidade = naturalidade;
             }

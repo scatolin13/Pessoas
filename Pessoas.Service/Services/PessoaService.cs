@@ -75,7 +75,7 @@ namespace Pessoas.Service.Services
                     model
                         .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
                         .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
-                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.PaisNascimento, entity.Nacionalidade, entity.Naturalidade)
+                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
                         .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
 
                     if (model.IsValid)
@@ -125,7 +125,7 @@ namespace Pessoas.Service.Services
                     model
                         .Atualizar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
                         .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
-                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.PaisNascimento, entity.Nacionalidade, entity.Naturalidade)
+                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
                         .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
 
                     if (model.IsValid)
