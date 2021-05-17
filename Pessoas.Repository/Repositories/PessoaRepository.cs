@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pessoas.Models;
+using Pessoas.Repository.Context;
 using Pessoas.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Pessoas.Repository.Repositories
     public class PessoaRepository : RepositoryBase<Pessoa>, IPessoaRepository
     {
         
-        public PessoaRepository(string connectionString) : base(connectionString)
+        public PessoaRepository(Connections connections) : base(connections)
         {
         }
 

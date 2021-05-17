@@ -10,6 +10,5 @@ namespace Pessoas.Repository.Interfaces
         Task<bool> ExistePorCpf(string cpf);
         Task<IEnumerable<Pessoa>> RetornarPorId(params int[] id);
         Task<IEnumerable<Pessoa>> RetornarPorCpf(params string[] cpf);
-        
     }
 }

@@ -104,6 +104,8 @@ namespace Pessoas.Service.Services
                     pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
                     res.Message.Add($"{listModel.Count(o => o.IsValid)} registro(s) inserido(s) com sucesso.");
+
+                    repository.InserirNoSql("pessoas", listModel.ToArray());
                 }
 
                 if (invalidos > 0)

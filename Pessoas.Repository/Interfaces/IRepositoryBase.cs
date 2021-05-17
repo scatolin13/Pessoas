@@ -8,6 +8,8 @@ namespace Pessoas.Repository.Interfaces
         void Inserir(params Entity[] entities);
         void Atualizar(params Entity[] entities);
         void Excluir(params Entity[] entities);
+        void InserirNoSql(string document, params Entity[] entities);
+
         Task<bool> SaveChanges();
     }
 }

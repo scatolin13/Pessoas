@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pessoas.API.DI;
+using Pessoas.Repository.Context;
 
 namespace Pessoas.API
 {
@@ -19,7 +20,15 @@ namespace Pessoas.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            DependencyInjection.Inject(services, Configuration.GetValue<string>("ConnectionString"));
+            var connections = new Connections()
+            {
+                ConnectionString = Configuration.GetValue<string>("ConnectionString"),
+                ConnectionStringNoSql = Configuration.GetValue<string>("ConnectionStringNoSql"),
+                BaseNoSql = Configuration.GetValue<string>("BaseNoSql"),
+                CacheString = Configuration.GetValue<string>("CacheString")
+            };
+
+            DependencyInjection.Inject(services, connections);
             services.AddControllers();
         }
 

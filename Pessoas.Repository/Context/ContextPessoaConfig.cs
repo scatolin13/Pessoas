@@ -9,6 +9,7 @@ namespace Pessoas.Repository.Context
     public partial class ContextPessoa : DbContext
     {
         private readonly string connectionString;
+
         public ContextPessoa(string connectionString)
         {
             this.connectionString = connectionString ?? throw new ArgumentException(nameof(connectionString));

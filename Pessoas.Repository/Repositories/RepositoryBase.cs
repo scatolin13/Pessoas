@@ -9,11 +9,13 @@ namespace Pessoas.Repository.Repositories
     public abstract class RepositoryBase<Entity> : IDisposable, IRepositoryBase<Entity> where Entity : EntityBase
     {
         protected readonly ContextPessoa context;
+        protected readonly ContextNoSqlPessoa contextNoSql;
         private bool disposedValue = false;
 
-        public RepositoryBase(string connectionString)
+        public RepositoryBase(Connections connections)
         {
-            context = new ContextPessoa(connectionString);
+            context = new ContextPessoa(connections.ConnectionString);
+            contextNoSql = new ContextNoSqlPessoa(connections.ConnectionStringNoSql, connections.BaseNoSql);
         }
 
         public void Inserir(params Entity[] entities)
@@ -29,6 +31,11 @@ namespace Pessoas.Repository.Repositories
         public void Excluir(params Entity[] entities)
         {
             context.RemoveRange(entities);
+        }
+
+        public void InserirNoSql(string document, params Entity[] entities)
+        {
+            contextNoSql.Insert(document, entities);
         }
 
         public async Task<bool> SaveChanges()
