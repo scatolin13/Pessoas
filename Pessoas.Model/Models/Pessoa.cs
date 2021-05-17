@@ -28,7 +28,8 @@ namespace Pessoas.Models
         public string NomePai { get; private set; }
         public string NomeMae { get; private set; }
         public bool Ativado { get; private set; }
-        public DateTime DataExclusao { get; private set; }
+        public DateTime DataCadastro { get; private set; }
+        public DateTime? DataExclusao { get; private set; }
 
         public virtual EstadoCivil EstadoCivil { get; private set; }
         public virtual GrauInstrucao GrauInstrucao { get; private set; }

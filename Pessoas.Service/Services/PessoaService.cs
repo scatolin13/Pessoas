@@ -65,23 +65,34 @@ namespace Pessoas.Service.Services
             var listModel = new List<Pessoa>();
             var res = new ResponseBase<PessoaResponse>();
             var pessoaResponse = new PessoaResponse();
-
+            int invalidos = 0;
             try
             {
                 foreach (var entity in entities)
                 {
                     var model = new Pessoa();
 
-                    model
-                        .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
-                        .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
-                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
-                        .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
-
-                    if (model.IsValid)
-                        listModel.Add(model);
+                    if (await repository.ExistePorCpf(entity.Cpf))
+                    {
+                        pessoaResponse.AddNotification("CPF", $"{entity.Cpf} já se encontra cadastrado");
+                        invalidos++;
+                    }
                     else
-                        res.Entities.Join(model);
+                    {
+                        model
+                            .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
+                            .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
+                            .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
+                            .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
+
+                        if (model.IsValid)
+                            listModel.Add(model);
+                        else
+                        {
+                            pessoaResponse.Join(model);
+                            invalidos++;
+                        }
+                    }
                 }
 
                 if (listModel.Any(o => o.IsValid))
@@ -92,18 +103,20 @@ namespace Pessoas.Service.Services
 
                     pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
-                    res.Entities = pessoaResponse;
-                    res.Message.Add("Registro inserido com sucesso");
+                    res.Message.Add($"{listModel.Count(o => o.IsValid)} registro(s) inserido(s) com sucesso.");
                 }
-                else
+
+                if (invalidos > 0)
                 {
-                    res.Message.Add("Nenhum registro foi inserido");
+                    res.Message.Add($"{invalidos} registro(s) não inserido(s).");
                 }
+
+                res.Entities = pessoaResponse;
 
             }
             catch (System.Exception ex)
             {
-                res.Message.Add("Falha ao inserir registro");
+                res.Message.Add("Falha ao inserir registro(s)");
                 res.Message.Add(ex.Message);
             }
 
@@ -115,23 +128,36 @@ namespace Pessoas.Service.Services
             var listModel = new List<Pessoa>();
             var res = new ResponseBase<PessoaResponse>();
             var pessoaResponse = new PessoaResponse();
+            int invalidos = 0;
 
             try
             {
                 foreach (var entity in entities)
                 {
-                    var model = new Pessoa(entity.Id);
 
-                    model
-                        .Atualizar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
-                        .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
-                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
-                        .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
+                    if (await repository.ExistePorId(entity.Id))
+                    {
+                        var model = new Pessoa(entity.Id);
 
-                    if (model.IsValid)
-                        listModel.Add(model);
+                        model
+                            .Atualizar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
+                            .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
+                            .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
+                            .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
+
+                        if (model.IsValid)
+                            listModel.Add(model);
+                        else
+                        {
+                            pessoaResponse.Join(model);
+                            invalidos++;
+                        }
+                    }
                     else
-                        res.Entities.Join(model);
+                    {
+                        pessoaResponse.AddNotification("Id", $"{entity.Id} não localizado.");
+                        invalidos++;
+                    }
                 }
 
                 if (listModel.Any(o => o.IsValid))
@@ -142,17 +168,19 @@ namespace Pessoas.Service.Services
 
                     pessoaResponse.Id = listModel.Where(o => o.Id > 0).Select(o => o.Id).ToList();
 
-                    res.Entities = pessoaResponse;
-                    res.Message.Add("Registro alterado com sucesso");
+                    res.Message.Add($"{ listModel.Count(o => o.IsValid)} registro(s) alterado(s) com sucesso");
                 }
-                else
+
+                if (invalidos > 0)
                 {
-                    res.Message.Add("Nenhum registro foi alterado");
+                    res.Message.Add($"{invalidos} registro(s) não alterado(s).");
                 }
+
+                res.Entities = pessoaResponse;
             }
             catch (System.Exception ex)
             {
-                res.Message.Add("Falha ao alterar registro");
+                res.Message.Add("Falha ao alterar registro(s)");
                 throw ex;
             }
 

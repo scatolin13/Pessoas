@@ -1,6 +1,6 @@
 ﻿using FluntValidation.Notifications;
 using Microsoft.EntityFrameworkCore;
-using Pessoas.Model.Models;
+using Pessoas.Models;
 
 #nullable disable
 
@@ -77,6 +77,8 @@ namespace Pessoas.Repository.Context
                     .HasColumnName("CPFSimples");
 
                 entity.Property(e => e.DataExclusao).HasColumnType("datetime");
+
+                entity.Property(e => e.DataCadastro).HasColumnType("datetime");
 
                 entity.Property(e => e.DataNascimento).HasColumnType("date");
 

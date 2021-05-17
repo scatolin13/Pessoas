@@ -1,5 +1,6 @@
 ﻿using FluntValidation.Validations;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Pessoas.Models
 {
@@ -22,7 +23,9 @@ namespace Pessoas.Models
                 Nome = nome;
                 NomeSocial = nomeSocial;
                 Cpf = cpf;
+                Cpfsimples = Regex.Replace(cpf, "[^0-9]+", "");
                 SexoId = (int)sexo;
+                DataCadastro = DateTime.Now;
             }
 
             return this;
@@ -41,6 +44,7 @@ namespace Pessoas.Models
                 Nome = nome;
                 NomeSocial = nomeSocial;
                 Cpf = cpf;
+                Cpfsimples = Regex.Replace(cpf, "[^0-9]+", "");
                 SexoId = (int)sexo;
             }
 
