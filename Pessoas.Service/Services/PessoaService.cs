@@ -4,6 +4,7 @@ using Pessoas.DTO.Response;
 using Pessoas.Models;
 using Pessoas.Repository.Interfaces;
 using Pessoas.Service.Interfaces;
+using Pessoas.Service.Queues;
 using RequestResponse;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,7 +106,13 @@ namespace Pessoas.Service.Services
 
                     res.Message.Add($"{listModel.Count(o => o.IsValid)} registro(s) inserido(s) com sucesso.");
 
-                    repository.InserirNoSql("pessoas", listModel.ToArray());
+                    var serviceBus = new ServiceBus("localhost");
+
+                    serviceBus.SendQueue(new QueueRequest<List<Pessoa>>()
+                    {
+                        QueueName = "queuePessoas",
+                        Value = listModel
+                    });
                 }
 
                 if (invalidos > 0)

@@ -14,11 +14,11 @@ namespace Pessoas.Repository.Context
             dBase = client.GetDatabase(dataBase);
         }
 
-        public IMongoCollection<Entity> Get<Entity>(string document)
+        public IEnumerable<Entity> Get<Entity>(string document)
         {
             var collection = dBase.GetCollection<Entity>(document);
 
-            return collection;
+            return collection.Find(o => true).ToList();
         }
 
         public void Insert<Entity>(string document, IEnumerable<Entity> entities)

@@ -1,11 +1,19 @@
 ﻿using FluntValidation.Validations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace Pessoas.Models
 {
     public partial class Pessoa : EntityBase
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [NotMapped]
+        public string IdNoSql { get; set; }
+
         public Pessoa(int id)
         {
             Id = id;

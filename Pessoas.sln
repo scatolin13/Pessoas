@@ -19,13 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.Repository", "Pesso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.Model", "Pessoas.Model\Pessoas.Model.csproj", "{669D28BD-98D2-4878-BE5B-3C692E6C75DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoas.DTO", "Pessoas.DTO\Pessoas.DTO.csproj", "{8EE1BA21-608C-43E9-B10A-A15D07B996E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.DTO", "Pessoas.DTO\Pessoas.DTO.csproj", "{8EE1BA21-608C-43E9-B10A-A15D07B996E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoas.Service", "Pessoas.Service\Pessoas.Service.csproj", "{C6F06B17-0426-4B67-A6CE-4E742C11F370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.Service", "Pessoas.Service\Pessoas.Service.csproj", "{C6F06B17-0426-4B67-A6CE-4E742C11F370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoas.Port", "Pessoas.Port\Pessoas.Port.csproj", "{9467FBA8-B3F5-4F92-B8CD-0ADC003E9F8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.Port", "Pessoas.Port\Pessoas.Port.csproj", "{9467FBA8-B3F5-4F92-B8CD-0ADC003E9F8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pessoas.API", "Pessoas.API\Pessoas.API.csproj", "{B39DB066-D7CB-4ADD-8B23-57E0298550C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pessoas.API", "Pessoas.API\Pessoas.API.csproj", "{B39DB066-D7CB-4ADD-8B23-57E0298550C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
