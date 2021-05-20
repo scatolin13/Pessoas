@@ -42,5 +42,13 @@ namespace Pessoas.API.Controllers
 
             return res;
         }
+
+        [HttpPut]
+        public ResponseBase<IEnumerable<PessoaDTO>> InserirNoSql([FromBody] NoSqlRequest<PessoaDTO> pessoas)
+        {
+            var res = pessoa.InserirNoSql(pessoas.Document, pessoas.Entities);
+
+            return res;
+        }
     }
 }

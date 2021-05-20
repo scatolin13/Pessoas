@@ -21,11 +21,13 @@ namespace Pessoas.Repository.Context
             return collection.Find(o => true).ToList();
         }
 
-        public void Insert<Entity>(string document, IEnumerable<Entity> entities)
+        public IEnumerable<Entity> Insert<Entity>(string document, IEnumerable<Entity> entities)
         {
             var collection = dBase.GetCollection<Entity>(document);
 
             collection.InsertMany(entities);
+
+            return entities;
         }
     }
 }

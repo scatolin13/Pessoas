@@ -4,6 +4,7 @@ namespace Pessoas.DTO.Request
 {
     public class PessoaDTO
     {
+        public string IdNoSql { get; set; }
         public int Id { get; set; }
         public string Nome { get; set; }
         public string NomeSocial { get; set; }

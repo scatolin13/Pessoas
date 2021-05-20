@@ -15,10 +15,12 @@ namespace Pessoas.Service.Services
     public class PessoaService : IPessoaService
     {
         private readonly IPessoaRepository repository;
+        private readonly IServiceBus serviceBus;
 
-        public PessoaService(IPessoaRepository repository)
+        public PessoaService(IPessoaRepository repository, IServiceBus serviceBus)
         {
             this.repository = repository;
+            this.serviceBus = serviceBus;
         }
 
         public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorId(params int[] id)
@@ -106,8 +108,6 @@ namespace Pessoas.Service.Services
 
                     res.Message.Add($"{listModel.Count(o => o.IsValid)} registro(s) inserido(s) com sucesso.");
 
-                    var serviceBus = new ServiceBus("localhost");
-
                     serviceBus.SendQueue(new QueueRequest<List<Pessoa>>()
                     {
                         QueueName = "queuePessoas",
@@ -116,9 +116,7 @@ namespace Pessoas.Service.Services
                 }
 
                 if (invalidos > 0)
-                {
                     res.Message.Add($"{invalidos} registro(s) não inserido(s).");
-                }
 
                 res.Entities = pessoaResponse;
 
@@ -181,9 +179,7 @@ namespace Pessoas.Service.Services
                 }
 
                 if (invalidos > 0)
-                {
                     res.Message.Add($"{invalidos} registro(s) não alterado(s).");
-                }
 
                 res.Entities = pessoaResponse;
             }
@@ -238,6 +234,48 @@ namespace Pessoas.Service.Services
                 throw ex;
             }
 
+            return res;
+        }
+
+        public ResponseBase<IEnumerable<PessoaDTO>> InserirNoSql(string document, params PessoaDTO[] entities)
+        {
+            var res = new ResponseBase<IEnumerable<PessoaDTO>>();
+            var pessoas = new List<Pessoa>();
+            int invalidos = 0;
+
+            try
+            {
+                foreach (var entity in entities)
+                {
+                    var pessoa = new Pessoa();
+                    pessoa
+                        .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
+                        .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
+                        .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
+                        .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
+
+                    if (pessoa.IsValid)
+                        pessoas.Add(pessoa);
+                    else
+                        invalidos++;
+                }
+
+                if (pessoas.Any(o => o.IsValid))
+                {
+                    var resPessoa = repository.InserirNoSql(document, pessoas.Where(o => o.IsValid).ToArray());
+                    var customMapper = new CustomAutoMapper<Pessoa, PessoaDTO>();
+                    res.Entities = customMapper.Map(resPessoa);
+                    res.Message.Add($"{resPessoa.Count()} registro(s) inserido(s) com sucesso.");
+                }
+
+                if (invalidos > 0)
+                    res.Message.Add($"{invalidos} registro(s) não inserido(s).");
+            }
+            catch (System.Exception ex)
+            {
+                res.Message.Add("Falha ao inserir registro(s)");
+                throw ex;
+            }
 
             return res;
         }

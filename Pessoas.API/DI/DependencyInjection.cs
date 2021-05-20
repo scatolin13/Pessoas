@@ -5,6 +5,7 @@ using Pessoas.Repository.Context;
 using Pessoas.Repository.Interfaces;
 using Pessoas.Repository.Repositories;
 using Pessoas.Service.Interfaces;
+using Pessoas.Service.Queues;
 using Pessoas.Service.Services;
 
 namespace Pessoas.API.DI
@@ -16,6 +17,7 @@ namespace Pessoas.API.DI
             services.AddTransient<IPessoaService, PessoaService>();
             services.AddTransient<IPessoaPort, PessoaPort>();
             services.AddTransient<IPessoaRepository>(x => new PessoaRepository(connections));
+            services.AddTransient<IServiceBus>(x => new ServiceBus(connections.ServiceBusHostName));
         }
     }
 }

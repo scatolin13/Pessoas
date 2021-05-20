@@ -1,4 +1,5 @@
 ﻿using FluntValidation.Validations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pessoas.Repository.Interfaces
@@ -8,8 +9,8 @@ namespace Pessoas.Repository.Interfaces
         void Inserir(params Entity[] entities);
         void Atualizar(params Entity[] entities);
         void Excluir(params Entity[] entities);
-        void InserirNoSql(string document, params Entity[] entities);
-
+        IEnumerable<Entity> InserirNoSql(string document, params Entity[] entities);
+       
         Task<bool> SaveChanges();
     }
 }

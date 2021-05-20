@@ -2,6 +2,7 @@
 using Pessoas.Repository.Context;
 using Pessoas.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pessoas.Repository.Repositories
@@ -33,9 +34,11 @@ namespace Pessoas.Repository.Repositories
             context.RemoveRange(entities);
         }
 
-        public void InserirNoSql(string document, params Entity[] entities)
+        public IEnumerable<Entity> InserirNoSql(string document, params Entity[] entities)
         {
-            contextNoSql.Insert(document, entities);
+            var res = contextNoSql.Insert(document, entities);
+
+            return res;
         }
 
         public async Task<bool> SaveChanges()

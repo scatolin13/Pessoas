@@ -25,7 +25,8 @@ namespace Pessoas.API
                 ConnectionString = Configuration.GetValue<string>("ConnectionString"),
                 ConnectionStringNoSql = Configuration.GetValue<string>("ConnectionStringNoSql"),
                 BaseNoSql = Configuration.GetValue<string>("BaseNoSql"),
-                CacheString = Configuration.GetValue<string>("CacheString")
+                CacheString = Configuration.GetValue<string>("CacheString"),
+                ServiceBusHostName = Configuration.GetValue<string>("ServiceBusHostName")
             };
 
             DependencyInjection.Inject(services, connections);

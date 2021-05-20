@@ -2,6 +2,7 @@
 using Pessoas.Port.Interfaces;
 using Pessoas.Service.Interfaces;
 using RequestResponse;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pessoas.Port.Ports
@@ -31,7 +32,14 @@ namespace Pessoas.Port.Ports
 
         public async Task<ResponseBase<EntityResult>> Excluir(params Entity[] entities)
         {
-            var res = await service .Excluir(entities);
+            var res = await service.Excluir(entities);
+
+            return res;
+        }
+
+        public ResponseBase<IEnumerable<Entity>> InserirNoSql(string document, params Entity[] entities)
+        {
+            var res = service.InserirNoSql(document, entities);
 
             return res;
         }

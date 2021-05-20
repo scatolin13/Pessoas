@@ -1,12 +1,10 @@
 ﻿using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
 namespace Pessoas.Service.Queues
 {
-    public class ServiceBus
+    public class ServiceBus : IServiceBus
     {
         private readonly ConnectionFactory factory;
         public ServiceBus(string hostName)

@@ -6,5 +6,6 @@
         public string ConnectionStringNoSql { get; set; }
         public string BaseNoSql { get; set; }
         public string CacheString { get; set; }
+        public string ServiceBusHostName { get; set; }
     }
 }
