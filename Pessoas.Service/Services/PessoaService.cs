@@ -83,7 +83,7 @@ namespace Pessoas.Service.Services
                     else
                     {
                         model
-                            .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId)
+                            .Cadastrar(entity.Nome, entity.NomeSocial, entity.Cpf, entity.SexoId, entity.PessoaDigital)
                             .AdicionarInformacoes(entity.RacaCorId, entity.EstadoCivilId, entity.GrauInstrucaoId)
                             .AdicionarInformacoesNascimento(entity.DataNascimento, entity.Nacionalidade, entity.Naturalidade)
                             .AdicionarFiliacao(entity.NomePai, entity.NomeMae);
@@ -111,7 +111,7 @@ namespace Pessoas.Service.Services
                     serviceBus.SendQueue(new QueueRequest<List<Pessoa>>()
                     {
                         QueueName = "queuePessoas",
-                        Value = listModel
+                        Value = listModel.Where(o => o.IsValid).ToList()
                     });
                 }
 

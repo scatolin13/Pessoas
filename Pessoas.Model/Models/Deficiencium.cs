@@ -9,7 +9,7 @@ namespace Pessoas.Models
     {
         public Deficiencium()
         {
-            PessoaDeficiencia = new HashSet<PessoaDeficiencium>();
+            PessoaDeficiencia = new HashSet<PessoaDeficiencia>();
         }
 
         public int Id { get; private set; }
@@ -17,6 +17,6 @@ namespace Pessoas.Models
         public string Detalhamento { get; private set; }
         public bool Ativado { get; private set; }
 
-        public virtual ICollection<PessoaDeficiencium> PessoaDeficiencia { get; private set; }
+        public virtual ICollection<PessoaDeficiencia> PessoaDeficiencia { get; private set; }
     }
 }

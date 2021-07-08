@@ -19,20 +19,25 @@ namespace Pessoas.Models
             Id = id;
         }
 
-        public Pessoa Cadastrar(string nome, string nomeSocial, string cpf, int? sexo)
+        public Pessoa Cadastrar(string nome, string nomeSocial, string cpf, int? sexo, bool pessoaDigital = false)
         {
             IsNotNullOrWhiteSpace(nome, "Nome", "é obrigatório.");
-            IsCPF(cpf, "CPF", "inválido");
-            IsNotNull(sexo, "Sexo", "é obrigatório");
-            IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+
+            if (!pessoaDigital)
+            {
+                IsCPF(cpf, "CPF", "inválido");
+                IsNotNull(sexo, "Sexo", "é obrigatório");
+                IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+            }
 
             if (IsValid)
             {
                 Nome = nome;
                 NomeSocial = nomeSocial;
                 Cpf = cpf;
+                PessoaDigital = pessoaDigital;
                 Cpfsimples = Regex.Replace(cpf, "[^0-9]+", "");
-                SexoId = (int)sexo;
+                SexoId = sexo;
                 DataCadastro = DateTime.Now;
             }
 
@@ -43,9 +48,13 @@ namespace Pessoas.Models
         {
             IsGreaterThan(Id, 0, "Pessoa", "não localizado");
             IsNotNullOrWhiteSpace(nome, "Nome", "é obrigatório.");
-            IsCPF(cpf, "CPF", "inválido");
-            IsNotNull(sexo, "Sexo", "é obrigatório");
-            IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+
+            if (!PessoaDigital)
+            {
+                IsCPF(cpf, "CPF", "inválido");
+                IsNotNull(sexo, "Sexo", "é obrigatório");
+                IfNotNull(sexo, o => IsBetween(sexo.Value, 1, 2, "Sexo", "inválido"));
+            }
 
             if (IsValid)
             {
@@ -53,7 +62,7 @@ namespace Pessoas.Models
                 NomeSocial = nomeSocial;
                 Cpf = cpf;
                 Cpfsimples = Regex.Replace(cpf, "[^0-9]+", "");
-                SexoId = (int)sexo;
+                SexoId = sexo;
             }
 
             return this;
@@ -68,9 +77,9 @@ namespace Pessoas.Models
             return this;
         }
 
-        public Pessoa AdicionarInformacoesNascimento(DateTime dataNascimento, int? nacionalidade, int? naturalidade)
+        public Pessoa AdicionarInformacoesNascimento(DateTime? dataNascimento, int? nacionalidade, int? naturalidade)
         {
-            IsBetween(dataNascimento, DateTime.Now.AddYears(-200), DateTime.Now, "Data de nascimento", "inválida");
+            IfNotNull(dataNascimento, o => IsBetween(dataNascimento.Value, DateTime.Now.AddYears(-200), DateTime.Now, "Data de nascimento", "inválida"));
             IfNotNull(nacionalidade, o => IsGreaterThan(nacionalidade.Value, 0, "Nacionalidade", "inválido"));
             IfNotNull(naturalidade, o => IsGreaterThan(naturalidade.Value, 0, "Naturalidade", "inválido"));
 

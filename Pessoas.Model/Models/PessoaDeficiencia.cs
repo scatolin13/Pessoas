@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
+﻿#nullable disable
 
 namespace Pessoas.Models
 {
-    public partial class PessoaDeficiencium
+    public partial class PessoaDeficiencia
     {
         public int Id { get; private set; }
         public int PessoaId { get; private set; }

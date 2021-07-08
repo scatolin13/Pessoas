@@ -12,7 +12,7 @@ namespace Pessoas.Repository.Context
         public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
         public virtual DbSet<GrauInstrucao> GrauInstrucaos { get; set; }
         public virtual DbSet<Pessoa> Pessoas { get; set; }
-        public virtual DbSet<PessoaDeficiencium> PessoaDeficiencia { get; set; }
+        public virtual DbSet<PessoaDeficiencia> PessoaDeficiencia { get; set; }
         public virtual DbSet<RacaCor> RacaCors { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
 
@@ -122,7 +122,7 @@ namespace Pessoas.Repository.Context
                     .HasConstraintName("FK_Pessoa_Sexo");
             });
 
-            modelBuilder.Entity<PessoaDeficiencium>(entity =>
+            modelBuilder.Entity<PessoaDeficiencia>(entity =>
             {
                 entity.HasOne(d => d.Deficiencia)
                     .WithMany(p => p.PessoaDeficiencia)
