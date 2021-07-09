@@ -10,6 +10,7 @@ namespace Pessoas.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]/{id:int}")]
     public class PessoaController : ControllerBase
     {
         private readonly IPessoaPort pessoa;
@@ -19,8 +20,16 @@ namespace Pessoas.API.Controllers
             this.pessoa = pessoa;
         }
 
+        [HttpGet]
+        public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorId(int id)
+        {
+            var res = await pessoa.RetornarPorId(id);
+
+            return res;
+        }
+
         [HttpPost]
-        public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorId([FromBody] params int[] id)
+        public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorListaId([FromBody] params int[] id)
         {
             var res = await pessoa.RetornarPorId(id);
 
