@@ -28,7 +28,7 @@ namespace Pessoas.API.Controllers
             return res;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ResponseBase<IEnumerable<PessoaDTO>>> RetornarPorListaId([FromBody] params int[] id)
         {
             var res = await pessoa.RetornarPorId(id);
@@ -36,7 +36,7 @@ namespace Pessoas.API.Controllers
             return res;
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<ResponseBase<PessoaResponse>> Inserir([FromBody] params PessoaDTO[] pessoas)
         {
             var res = await pessoa.Inserir(pessoas);
@@ -52,7 +52,7 @@ namespace Pessoas.API.Controllers
             return res;
         }
 
-        [HttpPut]
+        [HttpPost]
         public ResponseBase<IEnumerable<PessoaDTO>> InserirNoSql([FromBody] NoSqlRequest<PessoaDTO> pessoas)
         {
             var res = pessoa.InserirNoSql(pessoas.Document, pessoas.Entities);
